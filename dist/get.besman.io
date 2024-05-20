@@ -10,7 +10,9 @@ export BESMAN_SERVICE="https://raw.githubusercontent.com"
 # BESMAN_DIST_BRANCH=${BESMAN_DIST_BRANCH:-REL-${BESMAN_VERSION}}
 
 BESMAN_NAMESPACE="asa1997"
-BESMAN_VERSION="tagv0.0.10"
+# BESMAN_VERSION="v0.0.1-temp"
+BESMAN_VERSION="${BESMAN_VERSION:-v0.0.1-temp}"
+
 BESMAN_ENV_REPOS="$BESMAN_NAMESPACE/besecure-ce-env-repo"
 # BESMAN_DIST_BRANCH=${BESMAN_DIST_BRANCH:-REL-${BESMAN_VERSION}}
 
@@ -264,12 +266,14 @@ touch "$besman_user_config_file"
     echo "BESMAN_INTERACTIVE_USER_MODE=true"
     echo "BESMAN_DIR=$HOME/.besman"
     echo "BESMAN_ENV_REPOS=$BESMAN_ENV_REPOS"
-    echo "BESMAN_PLAYBOOK_REPO=besecure-playbooks-store"
+    echo "BESMAN_ENV_REPO_BRANCH=master"
+    echo "BESMAN_PLAYBOOK_REPO=$BESMAN_NAMESPACE/besecure-playbooks-store"
+    echo "BESMAN_PLAYBOOK_REPO_BRANCH=main"
     echo "BESMAN_GH_TOKEN="
+    echo "BESMAN_OFFLINE_MODE=true"
     echo "BESMAN_LOCAL_ENV=false"
-	echo "BESMAN_LOCAL_ENV_DIR="
+    echo "BESMAN_LOCAL_ENV_DIR="
     echo "BESMAN_PLAYBOOK_DIR=$besman_playbook_dir"
-
 } >> "$besman_user_config_file"
 echo "Download script archive..."
 
