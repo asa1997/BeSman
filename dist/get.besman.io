@@ -24,8 +24,6 @@ then
 	sudo apt update && sudo apt install jq -y
 fi
 
-if
-
 if [[ -z "$BESMAN_VERSION" ]] 
 then
 	echo "Fetching the latest stable version"
