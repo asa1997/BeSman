@@ -13,7 +13,7 @@ export BESMAN_SERVICE="https://raw.githubusercontent.com"
 # BESMAN_DIST_BRANCH=${BESMAN_DIST_BRANCH:-REL-${BESMAN_VERSION}}
 
 BESMAN_NAMESPACE="asa1997"
-# BESMAN_VERSION="${BESMAN_VERSION:-5.0.10}"
+# BESMAN_VERSION="${BESMAN_VERSION:-3.1.2}"
 
 BESMAN_ENV_REPO="$BESMAN_NAMESPACE/besecure-ce-env-repo"
 # BESMAN_DIST_BRANCH=${BESMAN_DIST_BRANCH:-REL-${BESMAN_VERSION}}
@@ -27,13 +27,12 @@ fi
 if [[ -z "$BESMAN_VERSION" ]] 
 then
 	echo "Fetching the latest stable version"
-	version=$(curl -s --insecure --silent "https://api.github.com/repos/$BESMAN_NAMESPACE/BeSman/releases" | jq -r '.[].tag_name' | tr ' ' '\n' | grep -v "rc" | head -n 1)
+	version=$(curl -s --insecure --silent "https://api.github.com/repos/$BESMAN_NAMESPACE/BeSman/releases" | jq -r '.[].tag_name' | tr ' ' '\n' | grep -v -E 'v?[0-9]+\.[0-9]+\.[0-9]+-(alpha|beta|rc)\.?([0-9]+)?' | head -n 1)
 	export BESMAN_VERSION="$version"
 else
 	echo "Checking if version $BESMAN_VERSION is valid..."
 	release=$(curl -s --insecure --silent "https://api.github.com/repos/$BESMAN_NAMESPACE/BeSman/releases" | jq -r '.[].tag_name' | grep "^$BESMAN_VERSION$")
 	[[ -z $release ]] && echo -e "\e[31m$release is not a valid version of $BESMAN_NAMESPACE/BeSman\e[0m" && return 1
-
 fi
 
 
