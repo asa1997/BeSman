@@ -32,8 +32,8 @@ then
 else
 	echo "Checking if version $BESMAN_VERSION is valid..."
 	release=$(curl -s --insecure --silent "https://api.github.com/repos/$BESMAN_NAMESPACE/BeSman/releases" | jq -r '.[].tag_name' | grep "^$BESMAN_VERSION$")
-	[[ -z $release ]] && echo -e "\e[31m$release is not a valid version of $BESMAN_NAMESPACE/BeSman\e[0m"
-	return 1
+	[[ -z $release ]] && echo -e "\e[31m$release is not a valid version of $BESMAN_NAMESPACE/BeSman\e[0m" && return 1
+
 fi
 
 
