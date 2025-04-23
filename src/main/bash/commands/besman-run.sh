@@ -5,7 +5,7 @@ function __bes_run() {
 
     playbook_name="$1"
     playbook_version="$2"
-    playbook_file="$BESMAN_PLAYBOOK_DIR/besman-$playbook_name-$playbook_version-playbook.sh"
+    playbook_file="$BESMAN_PLAYBOOK_DIR/besman-$playbook_name-playbook-$playbook_version.sh"
 
     # __besman_fetch_playbook "$playbook_name" "$playbook_version" || return 1
 
@@ -18,7 +18,7 @@ function __bes_run() {
         return 1
     fi
 
-    source "$BESMAN_PLAYBOOK_DIR/besman-$playbook_name-$playbook_version-playbook.sh"
+    source "$playbook_file"
 
     __besman_launch
 
