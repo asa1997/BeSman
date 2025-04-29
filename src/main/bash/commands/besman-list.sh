@@ -108,7 +108,7 @@ function __besman_check_repo_exist() {
     [[ $BESMAN_LOCAL_ENV == "true" ]] && return 0
     namespace=$(echo "$BESMAN_ENV_REPO" | cut -d "/" -f 1)
     repo=$(echo "$BESMAN_ENV_REPO" | cut -d "/" -f 2)
-    repo_url="https://api.github.com/repos/$namespace/$repo"
+    repo_url="$BESMAN_CODE_COLLAB_URL/$namespace/$repo"
 
     response=$(curl --head --insecure --silent "$repo_url" | head -n 1 | awk '{print $2}')
 

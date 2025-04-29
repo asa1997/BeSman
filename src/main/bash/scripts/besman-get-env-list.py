@@ -2,8 +2,7 @@ import requests
 import os
 import json
 import sys
-
-# Get environment variables
+from besman_python_helper import ConstructURL
 
 
 # if not env_repo:
@@ -22,9 +21,19 @@ def get_env_list():
     besman_dir = os.environ.get("BESMAN_DIR")
     local_env = os.environ.get("BESMAN_LOCAL_ENV")
     local_env_dir = os.environ.get("BESMAN_LOCAL_ENV_DIR")
+    # split BESMAN_ENV_REPO into namespace and repo
+    env_repo_split = env_repo.split('/')
+    namespace = env_repo_split[0]
+    repo = env_repo_split[1]
+    # Construct the URL
+    
+    url_constructor = ConstructURL(namespace, repo, branch)
 
-    url = f'https://raw.githubusercontent.com/{env_repo}/{branch}/environment-metadata.json'
-
+    # Use the construct_raw_url method
+    raw_url = url_constructor.construct_raw_url(namespace, repo, branch)
+    
+    url = f'{raw_url}/environment-metadata.json'
+    print("#####Raw url: ", url)
     try:
         # Load data
         if local_env == "true":
