@@ -2,10 +2,10 @@
 
 function __besman_check_vcs_exist()
 {
-    if [[ "$BESMAN_VCS"="git" ]]
+    if [[ "$BESMAN_VCS" == "git" ]]
     then
         __besman_check_for_git || return 1
-    elif [[ "$BESMAN_VCS"="gh" ]]
+    elif [[ "$BESMAN_VCS" == "gh" ]]
     then
         __besman_check_for_gh || return 1
     fi
@@ -34,10 +34,10 @@ function __besman_check_for_gh
 
 function __besman_check_vcs_auth
 {
-    if [[ "$BESMAN_VCS"="git" ]]
+    if [[ "$BESMAN_VCS" == "git" ]]
     then
         __besman_git_auth || return 1
-    elif [[ "$BESMAN_VCS"="gh" ]]
+    elif [[ "$BESMAN_VCS" == "gh" ]]
     then
         __besman_gh_auth || return 1
     fi
@@ -200,4 +200,22 @@ function __besman_check_github_id
         # __besman_error_rollback "$environment"
         return 1
     fi
+}
+
+
+function __besman_construct_raw_url(){
+    local namespace=$1
+    local repo=$2
+    local branch=$3
+    case $BESMAN_CODE_COLLAB_PLATFORM in
+        "github")
+            echo "https://raw.githubusercontent.com/$namespace/$repo/$branch"
+            ;;
+        "gitlab")
+            echo "$BESMAN_CODE_COLLAB_URL/$namespace/$repo/-/raw/$branch"
+            ;;
+        *)
+            ;;
+    esac
+    
 }
